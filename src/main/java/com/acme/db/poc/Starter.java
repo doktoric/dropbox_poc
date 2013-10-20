@@ -44,7 +44,7 @@ public class Starter {
 
         //Enable just if you need a new token
         //accesToken = getAccesToken(webAuth);
-        accesToken="gLOPbRh-1-YAAAAAAAAAAYeI0g6k8E-q_hRJhV37IIwl8wIKQwwg4fJBodWm9MWJ";
+        accesToken = "gLOPbRh-1-YAAAAAAAAAAYeI0g6k8E-q_hRJhV37IIwl8wIKQwwg4fJBodWm9MWJ";
         DbxClient client = loginWithDBApi(config, accesToken);
         listingFiles(client);
     }
@@ -69,7 +69,23 @@ public class Starter {
         DbxEntry.WithChildren listing = client.getMetadataWithChildren("/");
         System.out.println("Files in the root path:");
         for (DbxEntry child : listing.children) {
-            System.out.println("	" + child.name + ": " + child.toString());
+            listChildFiles(child, client, "");
         }
+    }
+
+    public static void listChildFiles(DbxEntry child, DbxClient client, String prefix) throws DbxException {
+        if (child.isFolder()) {
+            printFileOrFolder(prefix, child);
+            DbxEntry.WithChildren listing = client.getMetadataWithChildren(child.path);
+            for (DbxEntry actual : listing.children) {
+                listChildFiles(actual, client, prefix + "\t");
+            }
+        } else {
+            printFileOrFolder(prefix, child);
+        }
+    }
+
+    public static void printFileOrFolder(String prefix, DbxEntry child){
+        System.out.println(prefix + " " + child.name +" path: "+child.path);
     }
 }
