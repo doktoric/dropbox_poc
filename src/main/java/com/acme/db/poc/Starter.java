@@ -7,9 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Locale;
-import java.util.Properties;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import com.dropbox.client2.DropboxAPI;
 import com.dropbox.client2.exception.DropboxException;
@@ -43,10 +41,13 @@ public class Starter {
         String accesToken;
 
         //Enable just if you need a new token
-        //accesToken = getAccesToken(webAuth);
-        accesToken = "gLOPbRh-1-YAAAAAAAAAAYeI0g6k8E-q_hRJhV37IIwl8wIKQwwg4fJBodWm9MWJ";
-        DbxClient client = loginWithDBApi(config, accesToken);
-        listingFiles(client);
+        // accesToken = getAccesToken(webAuth);
+        List<String> tokens= Arrays.asList( "gLOPbRh-1-YAAAAAAAAAAYeI0g6k8E-q_hRJhV37IIwl8wIKQwwg4fJBodWm9MWJ","BftrdnPh_LEAAAAAAAAAAWKeYoFzEKPO-0xphYD3MUy-Ar_msUJBMl7ykkwJowTa");
+       // accesToken = "gLOPbRh-1-YAAAAAAAAAAYeI0g6k8E-q_hRJhV37IIwl8wIKQwwg4fJBodWm9MWJ";
+        for(String actualToken : tokens){
+            DbxClient client = loginWithDBApi(config, actualToken);
+            //listingFiles(client);
+        }
     }
 
     public static String getAccesToken(DbxWebAuthNoRedirect webAuth) throws IOException, DbxException {
