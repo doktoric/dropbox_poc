@@ -29,24 +29,24 @@ import java.io.IOException;
  * To change this template use File | Settings | File Templates.
  */
 public class Starter {
-    public static final String APP_KEY = "ux99ccbt25ygh0n";
-    public static final String APP_SECRET = "x09ykq8wl1vc1hh";
+    public static final String APP_KEY = "";
+    public static final String APP_SECRET = "";
 
 
     public static void main(String[] args) throws IOException, DbxException {
 
-        DbxRequestConfig config = new DbxRequestConfig("dp_poc", Locale.getDefault().toString());
+        DbxRequestConfig config = new DbxRequestConfig("app_name", Locale.getDefault().toString());
         DbxAppInfo appInfo = new DbxAppInfo(APP_KEY, APP_SECRET);
         DbxWebAuthNoRedirect webAuth = new DbxWebAuthNoRedirect(config, appInfo);
         String accesToken;
 
         //Enable just if you need a new token
         // accesToken = getAccesToken(webAuth);
-        List<String> tokens= Arrays.asList( "gLOPbRh-1-YAAAAAAAAAAYeI0g6k8E-q_hRJhV37IIwl8wIKQwwg4fJBodWm9MWJ","BftrdnPh_LEAAAAAAAAAAWKeYoFzEKPO-0xphYD3MUy-Ar_msUJBMl7ykkwJowTa");
-       // accesToken = "gLOPbRh-1-YAAAAAAAAAAYeI0g6k8E-q_hRJhV37IIwl8wIKQwwg4fJBodWm9MWJ";
+        List<String> tokens= Arrays.asList( "","");
+       // accesToken = "";
         for(String actualToken : tokens){
             DbxClient client = loginWithDBApi(config, actualToken);
-            //listingFiles(client);
+            listingFiles(client);
         }
     }
 
@@ -87,6 +87,8 @@ public class Starter {
     }
 
     public static void printFileOrFolder(String prefix, DbxEntry child){
-        System.out.println(prefix + " " + child.name +" path: "+child.path);
+        if(child.name.endsWith(".mp3")){
+         System.out.println(prefix + " " + child.name +" path: "+child.path);
+        }
     }
 }
